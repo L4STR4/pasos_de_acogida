@@ -8,10 +8,10 @@ import os
 # Configuración inicial de la página (Mobile-First)
 # ---------------------------------------------------------
 st.set_page_config(
-    page_title="Pasos a la Adopción | App Móvil",
+    page_title="Pasos a la Adopción",
     page_icon="🐾",
     layout="centered",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"  # Abre la app cerrada con el botón de las 3 rayas
 )
 
 # ---------------------------------------------------------
@@ -29,7 +29,7 @@ st.markdown("""
     .app-header {
         background-color: #064E3B;
         color: #FFFFFF;
-        padding: 22px 16px;
+        padding: 18px 16px;
         border-radius: 16px;
         text-align: center;
         margin-bottom: 20px;
@@ -39,12 +39,7 @@ st.markdown("""
         color: #FFFFFF !important;
         font-weight: 800;
         font-size: 1.8rem;
-        margin-bottom: 4px;
-    }
-    .app-header p {
-        color: #A7F3D0 !important;
-        font-size: 0.9rem;
-        margin-bottom: 0;
+        margin: 0;
     }
     
     /* Tarjetas */
@@ -74,25 +69,20 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# BANNER SUPERIOR CON IMAGEN MODIFICABLE DE CABECERA
+# HEADER Y LOGO PERSONALIZADO
 # ---------------------------------------------------------
-# Si quieres usar una imagen tuya local, pon tu archivo en src/img/portada.jpg
-ruta_imagen_local = os.path.join(os.path.dirname(__file__), 'img', 'portada.jpg')
+ruta_logo = os.path.join(os.path.dirname(__file__), 'img', 'logo_app.png')
 
-if os.path.exists(ruta_imagen_local):
-    st.image(ruta_imagen_local, use_container_width=True)
-else:
-    # Imagen por defecto desde URL (Modificable fácilmente cambiando el enlace)
-    st.image(
-        "https://images.unsplash.com/photo-1548767797-d8c844163c4c?q=80&w=1000&auto=format&fit=crop",
-        use_container_width=True,
-        caption="Pasos a la Adopción · Proyecto Data Science & Concienciación Social"
-    )
+col_img1, col_img2, col_img3 = st.columns([1, 2, 1])
+with col_img2:
+    if os.path.exists(ruta_logo):
+        st.image(ruta_logo, use_container_width=True)
+    else:
+        st.image("https://img.icons8.com/color/180/pets.png", width=120)
 
 st.markdown("""
     <div class="app-header">
         <h1>🐾 PASOS A LA ADOPCIÓN</h1>
-        <p>Análisis de Datos, Concienciación Social y Entorno Interactivo</p>
     </div>
 """, unsafe_allow_html=True)
 
@@ -100,78 +90,50 @@ st.markdown("""
 # MENÚ NAVEGADOR MÓVIL (Con Perro 🐕 y Gato 🐈)
 # ---------------------------------------------------------
 st.sidebar.markdown("## 🐕 🐈 Pasos a la Adopción")
-st.sidebar.caption("Menú Principal de Navegación")
+st.sidebar.caption("Toca una opción para navegar:")
 
 opcion = st.sidebar.radio(
-    "Selecciona una sección:",
+    "Menú principal:",
     [
         "🏠 1. Inicio / La Idea",
         "📊 2. EDA Austin (Hipótesis)",
         "🇪🇸 3. Estudio Affinity (España)",
-        "🏘️ 4. Protectoras en España"
+        "🏘️ 4. Protectoras en España",
+        "🔮 5. Simulador de Estancia (ML)"
     ]
 )
 
 st.sidebar.divider()
-st.sidebar.caption("Proyecto Open Source · Data Analyst Bootcamp")
+st.sidebar.caption("Pasos a la Adopción v1.0")
 
 # =========================================================
-# OPCIÓN 1: INICIO, PROPÓSITO Y SIMULADOR
+# OPCIÓN 1: INICIO Y PROPÓSITO DEL PROYECTO
 # =========================================================
 if opcion == "🏠 1. Inicio / La Idea":
-    st.subheader("📌 Sobre el Proyecto")
+    st.subheader("📌 ¿De qué va este proyecto?")
     
     st.markdown("""
     <div class="card-teal">
-        <h4>¿Cuál es la idea de este proyecto?</h4>
-        <p>Unir el <b>Análisis Exploratorio de Datos (EDA)</b> con una causa social: estudiar los factores que provocan que los animales queden estancados en refugios para optimizar su gestión, acelerar la adopción y sensibilizar a la sociedad.</p>
+        <h4>🐾 Una mirada diferente a la adopción animal</h4>
+        <p>¡Hola! <b>Pasos a la Adopción</b> nace con una idea muy clara: utilizar los datos para entender qué ocurre realmente en los refugios y buscar formas prácticas de echar una mano.</p>
+        <p>A través de esta app móvil queremos explorar cómo influyen aspectos como el pelaje, la época del año o el estado de salud en el tiempo que una mascota pasa en una jaula. Además, conectamos estos datos con la realidad de las protectoras en España para dar visibilidad a su labor y facilitar el contacto con ellas.</p>
     </div>
     """, unsafe_allow_html=True)
     
-    st.divider()
-    
-    # REEMPLAZO: Simulador de Estancia en lugar de métricas de análisis
-    st.subheader("🔮 Simulador Interactivo de Estancia")
-    st.write("Selecciona las características de una mascota para estimar su tiempo medio de permanencia en el refugio:")
-    
-    col_s1, col_s2 = st.columns(2)
-    with col_s1:
-        especie_sim = st.selectbox("Especie", ["Perro 🐕", "Gato 🐈"])
-        edad_sim = st.select_slider("Edad", ["Cachorro", "Joven", "Adulto", "Senior"])
-    with col_s2:
-        pelaje_sim = st.selectbox("Pelaje", ["Negro / Oscuro", "Claro / Otros"])
-        salud_sim = st.selectbox("Salud al ingresar", ["Normal", "Herido / Enfermo"])
-        
-    # Lógica simple de simulación basada en la mediana del EDA
-    dias_est = 5.5
-    if especie_sim == "Gato 🐈":
-        dias_est += 1.3
-    if pelaje_sim == "Negro / Oscuro":
-        dias_est += 0.4
-    if edad_sim in ["Adulto", "Senior"]:
-        dias_est += 3.5
-    if salud_sim == "Herido / Enfermo":
-        dias_est += 4.0
-        
-    st.markdown(f"""
-    <div class="card-highlight">
-        <h3>⏱️ Estancia estimada: <b>{dias_est:.1f} días</b></h3>
-        <p><i>Estimación basada en la mediana histórica de características similares en el refugio.</i></p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.info("💡 **Navegación:** Pulsa sobre el **botón con las tres rayas (☰)** en la esquina superior izquierda para desplegar el menú de opciones.")
 
 # =========================================================
 # OPCIÓN 2: EDA AUSTIN (HIPÓTESIS)
 # =========================================================
 elif opcion == "📊 2. EDA Austin (Hipótesis)":
-    st.subheader("📊 Análisis de Hipótesis (Austin Animal Center)")
-    st.write("Selecciona una hipótesis para explorar sus datos y conclusiones:")
+    st.subheader("📊 Análisis del Austin Animal Center")
+    st.write("Explora las 4 hipótesis analizadas sobre más de 156.000 registros:")
     
     hipo = st.selectbox(
-        "Elige la hipótesis:",
+        "Elige una hipótesis:",
         [
-            "H1: Síndrome del Perro Negro",
-            "H2: Estacionalidad y Camadas Estivales",
+            "H1: El Síndrome del Perro Negro",
+            "H2: Estacionalidad (Kitten Season)",
             "H3: Triaje de Salud vs. Eutanasia",
             "H4: Perros vs. Gatos"
         ]
@@ -190,7 +152,7 @@ elif opcion == "📊 2. EDA Austin (Hipótesis)":
                      title="Mediana de Días de Estancia por Pelaje")
         fig.update_traces(texttemplate='%{text:.2f} días', textposition='outside')
         st.plotly_chart(fig, use_container_width=True)
-        st.success("**Conclusión:** La diferencia es de solo +0,38 días (~9 horas) en mediana. Desmitificado a nivel individual, aunque en el acumulado total representa más de 11.800 días de jaula extra.")
+        st.success("**Conclusión:** La diferencia en mediana es de solo **+0,38 días (~9 horas)**. Desmitificado el rechazo individual abrumador, aunque en la población total suma más de 11.800 días extra en jaula.")
         
     elif "H2" in hipo:
         st.markdown("#### ☀️ H2: Estacionalidad (Kitten Season)")
@@ -199,7 +161,7 @@ elif opcion == "📊 2. EDA Austin (Hipótesis)":
         fig = px.line(x=meses, y=ingresos, markers=True, color_discrete_sequence=['#064E3B'],
                       title="Ingresos Mensuales en el Refugio")
         st.plotly_chart(fig, use_container_width=True)
-        st.warning("**Conclusión:** El colapso arranca en Mayo (16.044) y Junio (15.634) debido al nacimiento descontrolado de camadas sin esterilizar.")
+        st.warning("**Conclusión:** El colapso ocurre en **Mayo (16.044)** y **Junio (15.634)** por nacimientos de camadas descontroladas (*Kitten Season*), no por vacaciones en agosto.")
         
     elif "H3" in hipo:
         st.markdown("#### 🏥 H3: Triaje de Salud vs. Eutanasia")
@@ -212,51 +174,64 @@ elif opcion == "📊 2. EDA Austin (Hipótesis)":
         fig = px.bar(df_salud, x='Estado', y='Porcentaje', color='Destino', barmode='group',
                      color_discrete_sequence=['#064E3B', '#34D399', '#D97706'])
         st.plotly_chart(fig, use_container_width=True)
-        st.info("**Conclusión:** Refutado. El centro deriva el 33,1% de enfermos y 61,5% de lactantes a protectoras y hospitales mediante traslados (Transfer).")
+        st.info("**Conclusión:** Refutado. El centro opera como triaje: el 33,1% de enfermos y 61,5% de lactantes se derivan a protectoras externas (*Transfer*).")
         
     elif "H4" in hipo:
         st.markdown("#### 🐱 vs 🐶 H4: Perros vs. Gatos")
         col1, col2 = st.columns(2)
         with col1:
-            st.metric("Gatos (Cat)", "7,12 Días", "Mediana")
+            st.metric("Gatos (Cat)", "7,12 Días", "Mediana Estancia")
         with col2:
-            st.metric("Perros (Dog)", "5,78 Días", "Mediana")
-        st.info("**Conclusión:** Los gatos superan a los perros en 1,34 días de mediana debido a la incubación requerida para las camadas lactantes de primavera.")
+            st.metric("Perros (Dog)", "5,78 Días", "Mediana Estancia")
+        st.info("**Conclusión:** Los gatos permanecen 1,34 días más de mediana debido a la incubación requerida para las camadas lactantes de primavera.")
 
 # =========================================================
 # OPCIÓN 3: ESTUDIO FUNDACIÓN AFFINITY (ESPAÑA)
 # =========================================================
 elif opcion == "🇪🇸 3. Estudio Affinity (España)":
-    st.subheader("🇪🇸 La Realidad en España")
-    st.caption("Datos oficiales extraídos del Informe 'Él nunca lo haría' (Fundación Affinity 2026)")[cite: 1]
+    st.subheader("🇪🇸 Estudio Fundación Affinity")
+    st.caption("Resumen interactivo del informe 'Él nunca lo haría' (Datos en España)")
     
     col1, col2 = st.columns(2)
     with col1:
-        st.metric("Abandonos / Año", "285.720", "Perros y Gatos")[cite: 1]
+        st.metric("Recogidos / Año", "285.720", "169k perros / 116k gatos")
     with col2:
-        st.metric("Caída Adopciones", "-18%", "En el último año")[cite: 1]
+        st.metric("Adopciones 2025", "42,9%", "-18% en perros este año")
         
     st.markdown("""
     <div class="card-highlight">
-        <h4>🚨 Hallazgos Críticos del Informe Affinity:</h4>
-        <ul>
-            <li><b>75% sin Microchip:</b> 3 de cada 4 animales ingresan sin identificar a los refugios españoles[cite: 1].</li>
-            <li><b>12,8 Meses:</b> Es la estancia media de un perro adulto en cheniles españoles (frente a los 5,8 días de Austin)[cite: 1, 3].</li>
-            <li><b>15,3% Camadas No Deseadas:</b> Sigue siendo el motivo #1 de abandono en nuestro país[cite: 1, 4].</li>
-            <li><b>Solo 5% de Alquileres admiten mascotas:</b> El cambio de domicilio se ha convertido en la tercera causa principal de abandono[cite: 4, 5].</li>
-        </ul>
+        <h4>📊 Datos Reales del Informe Oficial:</h4>
     </div>
     """, unsafe_allow_html=True)
 
+    with st.expander("🆔 1. El grave problema de la falta de Microchip", expanded=True):
+        st.write("""
+        * **El 75% de los animales ingresados NO llevan microchip**, pese a ser obligatorio por ley.
+        * Sin embargo, cuando un animal está identificado, el **65,2% regresa felizmente con su familia**. El chip transforma una pérdida temporal en una devolución en 48 horas.
+        """)
+
+    with st.expander("⏱️ 2. Permanencia en Chenil: Austin vs. España"):
+        st.write("""
+        * Mientras en Austin (EE. UU.) la mediana de estancia es de **5,8 días**, en España un perro adulto pasa de media entre **8 y 12,8 meses** en la protectora.
+        * Los perros sénior (>8 años) superan los **13,2 meses** de estancia media.
+        """)
+
+    with st.expander("🚫 3. Principales Motivos de Abandono"):
+        st.write("""
+        1. **Camadas no deseadas (15,3%):** Causa #1 de abandono por falta de esterilización.
+        2. **Pérdida de interés (14,0%):** Abandono por falta de compromiso.
+        3. **Cambio de domicilio (11,9%):** Solo el **5% de los pisos en alquiler** admiten mascotas expresamente.
+        """)
+
 # =========================================================
-# OPCIÓN 4: PROTECTORAS EN ESPAÑA CON TELÉFONO Y CONTACTO
+# OPCIÓN 4: PROTECTORAS EN ESPAÑA CON CONTACTOS
 # =========================================================
 elif opcion == "🏘️ 4. Protectoras en España":
     st.subheader("🏘️ Directorio de Protectoras y Contacto")
     st.write("Consulta entidades de acogida y adopción en España con teléfono y datos directos de contacto:")
     
     zona = st.selectbox(
-        "Filtra por zona geográfica:",
+        "Selecciona zona geográfica:",
         [
             "Ámbito Estatal",
             "Comunidad de Madrid",
@@ -273,7 +248,7 @@ elif opcion == "🏘️ 4. Protectoras en España":
             <h4>🏢 Fundación Affinity</h4>
             <p>📞 <b>Teléfono:</b> 93 495 80 00<br>
             🌐 <b>Web:</b> <a href="https://www.fundacion-affinity.org/" target="_blank">fundacion-affinity.org</a><br>
-            📍 <b>Ámbito:</b> Investigación y concienciación nacional.</p>
+            📍 <b>Ámbito:</b> Investigación y estudio del abandono.</p>
         </div>
         <div class="card-contact">
             <h4>🐕 FAADA (Fundación para la Adopción)</h4>
@@ -294,8 +269,7 @@ elif opcion == "🏘️ 4. Protectoras en España":
         <div class="card-contact">
             <h4>🏛️ CIAAM (Comunidad de Madrid)</h4>
             <p>📞 <b>Teléfono:</b> 91 846 75 40<br>
-            🌐 <b>Web:</b> <a href="https://www.comunidad.madrid/" target="_blank">comunidad.madrid</a><br>
-            📍 <b>Ubicación:</b> Colmenar Viejo, Madrid</p>
+            🌐 <b>Web:</b> <a href="https://www.comunidad.madrid/" target="_blank">comunidad.madrid</a></p>
         </div>
         """, unsafe_allow_html=True)
         
@@ -304,8 +278,7 @@ elif opcion == "🏘️ 4. Protectoras en España":
         <div class="card-contact">
             <h4>🐈 SPAM (Protectora de Mataró)</h4>
             <p>📞 <b>Teléfono:</b> 93 756 60 26<br>
-            🌐 <b>Web:</b> <a href="https://www.protectoramataró.org/" target="_blank">protectoramataró.org</a><br>
-            ✉️ <b>Contacto:</b> info@protectoramataró.org</p>
+            🌐 <b>Web:</b> <a href="https://www.protectoramataró.org/" target="_blank">protectoramataró.org</a></p>
         </div>
         <div class="card-contact">
             <h4>🏛️ CAACB Barcelona</h4>
@@ -317,15 +290,14 @@ elif opcion == "🏘️ 4. Protectoras en España":
     elif zona == "Andalucía":
         st.markdown("""
         <div class="card-contact">
-            <h4>🐕 Asociación Galgos del Sur (Córdoba)</h4>
+            <h4>🐕 Galgos del Sur (Córdoba)</h4>
             <p>📞 <b>Teléfono:</b> 616 41 85 82<br>
-            🌐 <b>Web:</b> <a href="https://galgosdelsur.es/" target="_blank">galgosdelsur.es</a><br>
-            ✉️ <b>Contacto:</b> contacto@galgosdelsur.es</p>
+            🌐 <b>Web:</b> <a href="https://galgosdelsur.es/" target="_blank">galgosdelsur.es</a></p>
         </div>
         <div class="card-contact">
             <h4>🐾 SPAPM (Protectora de Málaga)</h4>
             <p>📞 <b>Teléfono:</b> 952 43 45 00<br>
-            🌐 <b>Web:</b> <a href="https://protectoramaga.org/" target="_blank">protectoramalaga.org</a></p>
+            🌐 <b>Web:</b> <a href="https://protectoramalaga.org/" target="_blank">protectoramalaga.org</a></p>
         </div>
         """, unsafe_allow_html=True)
         
@@ -357,9 +329,36 @@ elif opcion == "🏘️ 4. Protectoras en España":
         </div>
         """, unsafe_allow_html=True)
 
-    with st.expander("🤝 ¿Cómo colaborar con estas entidades?"):
-        st.write("""
-        1. **Adopción Responsable:** Contacta directamente a los teléfonos indicados para solicitar cita previa.
-        2. **Acogida Temporal (*Foster*):** Imparable ayuda para cachorros sin vacunar o animales convalecientes.
-        3. **Voluntariado y Paseos:** Apoyo en paseos de fin de semana para animales en cheniles.
-        """)
+# =========================================================
+# OPCIÓN 5: SIMULADOR DE ESTANCIA (MACHINE LEARNING)
+# =========================================================
+elif opcion == "🔮 5. Simulador de Estancia (ML)":
+    st.subheader("🔮 Simulador de Estancia Estimada")
+    st.write("Selecciona los atributos de una mascota para estimar su tiempo de jaula:")
+    
+    col_s1, col_s2 = st.columns(2)
+    with col_s1:
+        especie_sim = st.selectbox("Especie", ["Perro 🐕", "Gato 🐈"])
+        edad_sim = st.select_slider("Edad", ["Cachorro", "Joven", "Adulto", "Senior"])
+    with col_s2:
+        pelaje_sim = st.selectbox("Pelaje", ["Negro / Oscuro", "Claro / Otros"])
+        salud_sim = st.selectbox("Salud al ingresar", ["Normal", "Herido / Enfermo"])
+        
+    dias_est = 5.5
+    if especie_sim == "Gato 🐈":
+        dias_est += 1.3
+    if pelaje_sim == "Negro / Oscuro":
+        dias_est += 0.4
+    if edad_sim in ["Adulto", "Senior"]:
+        dias_est += 3.5
+    if salud_sim == "Herido / Enfermo":
+        dias_est += 4.0
+        
+    st.markdown(f"""
+    <div class="card-highlight">
+        <h3>⏱️ Estancia estimada: <b>{dias_est:.1f} días</b></h3>
+        <p><i>Estimación basada en la mediana histórica del dataset.</i></p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.caption("📌 **Nota:** Este simulador servirá de base para el futuro modelo predictivo de Machine Learning.")
