@@ -97,7 +97,7 @@ opcion = st.sidebar.radio(
     [
         "🏠 1. Inicio / La Idea",
         "📊 2. EDA Austin (Hipótesis)",
-        "🇪🇸 3. Estudio Affinity (España)",
+        "🐶 3. Estudio Affinity (España)",
         "🏘️ 4. Protectoras en España",
         "🔮 5. Simulador de Estancia (ML)"
     ]
@@ -114,13 +114,13 @@ if opcion == "🏠 1. Inicio / La Idea":
     
     st.markdown("""
     <div class="card-teal">
-        <h4>🐾 Una mirada diferente al abandono y la acogida animal</h4>
-        <p>¡Hola! <b>Pasos de Acogida</b> nace con una idea muy clara: utilizar los datos para entender qué ocurre realmente en las protectoras y buscar formas prácticas de echar una mano.</p>
-        <p>A través de esta app móvil queremos explorar cómo influyen aspectos como el pelaje, la época del año o el estado de salud en el tiempo que un animal pasa en un refugio. Además, conectamos este análisis con la realidad de las protectoras en España para dar visibilidad a su trabajo y facilitar el contacto directo con ellas.</p>
+        <h4> Una mirada diferente al abandono y la acogida animal</h4>
+        <p>¡Kaixo Compis! <b>Pasos de Acogida</b> nace con una idea muy clara: utilizar los datos para entender qué ocurre realmente en las protectoras y buscar formas prácticas de echar una mano.</p>
+        <p>A través de esta app móvil quiero explorar cómo influyen aspectos como el pelaje, la época del año o el estado de salud en el tiempo que un animal pasa en un refugio. Además, conectamos este análisis con la realidad de las protectoras en España para dar visibilidad a su trabajo y facilitar el contacto directo con ellas.</p>
     </div>
     """, unsafe_allow_html=True)
     
-    st.info("💡 **Navegación:** Despliega el menú pulsando el botón con las tres rayas (☰) arriba a la izquierda para consultar las hipótesis, el estudio de España o buscar contactos de protectoras.")
+    st.info("💡 **Navegación:** Despliega el menú pulsando el botón (>>) arriba a la izquierda para consultar las hipótesis, el estudio de España o buscar contactos de protectoras.")
 
 # =========================================================
 # OPCIÓN 2: EDA AUSTIN (HIPÓTESIS)
