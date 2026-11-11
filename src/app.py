@@ -116,7 +116,7 @@ if opcion == "🏠 1. Inicio / La Idea":
     <div class="card-teal">
         <h4> Una mirada diferente al abandono y la acogida animal</h4>
         <p>¡Kaixo Compis! <b>Pasos de Acogida</b> nace con una idea muy clara: utilizar los datos para entender qué ocurre realmente en las protectoras y buscar formas prácticas de echar una mano.</p>
-        <p>A través de esta app móvil quiero explorar cómo influyen aspectos como el pelaje, la época del año o el estado de salud en el tiempo que un animal pasa en un refugio. Además, conectamos este análisis con la realidad de las protectoras en España para dar visibilidad a su trabajo y facilitar el contacto directo con ellas.</p>
+        <p>A través de esta app móvil quiero explorar cómo influyen aspectos como el pelaje, la época del año o el estado de salud en el tiempo que un animal pasa en un refugio. Además, conecto este análisis con la realidad de las protectoras en España para dar visibilidad a su trabajo y facilitar el contacto directo con ellas.</p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -189,38 +189,57 @@ elif opcion == "📊 2. EDA Austin (Hipótesis)":
 # OPCIÓN 3: ESTUDIO FUNDACIÓN AFFINITY (ESPAÑA)
 # =========================================================
 elif opcion == "🇪🇸 3. Estudio Affinity (España)":
-    st.subheader("🇪🇸 Estudio Fundación Affinity")
-    st.caption("Resumen del informe 'Él nunca lo haría' (Datos de abandonos y adopción en España)")
+    st.subheader("🇪🇸 Estudio Fundación Affinity (1995-2025)")
+    st.caption("Análisis oficial sobre el abandono, pérdida y adopción de animales de compañía en España.")
     
-    col1, col2 = st.columns(2)
+    # KPIs Clave en España
+    col1, col2, col3 = st.columns(3)
     with col1:
-        st.metric("Recogidos / Año", "285.720", "169k perros / 116k gatos")
+        st.metric("Ingresos Anuales", "285.720", "169.268 perros / 116.452 gatos")
     with col2:
-        st.metric("Adopciones 2025", "42,9%", "-18% en perros este año")
+        st.metric("Tasa de Adopción", "42,9%", "Caída del 18% en perros")
+    with col3:
+        st.metric("Sin Microchip", "75,0%", "No identificados al ingresar")
         
     st.markdown("""
     <div class="card-highlight">
-        <h4>📊 Datos Reales del Informe Oficial:</h4>
+        <h4>📊 Principales Hallazgos del Informe Oficial:</h4>
     </div>
     """, unsafe_allow_html=True)
 
-    with st.expander("🆔 1. El grave problema de la falta de Microchip", expanded=True):
+    with st.expander("🆔 1. El Impacto Crítico del Microchip", expanded=True):
         st.write("""
-        * **El 75% de los animales ingresados NO llevan microchip**, pese a ser obligatorio por ley.
-        * Sin embargo, cuando un animal está identificado, el **65,2% regresa felizmente con su familia**. El chip transforma una pérdida temporal en una devolución rápida.
+        * **El 75% de los animales recogidos no lleva microchip**, a pesar de ser obligatorio por ley.
+        * **Efecto de la identificación:** Cuando un animal está identificado con microchip, el **65,2% regresa felizmente con su familia**, convirtiendo una pérdida temporal en un retorno rápido a casa. Un animal identificado tiene entre **4 y 5 veces más probabilidades** de volver a su hogar.
         """)
 
-    with st.expander("⏱️ 2. Permanencia en Chenil: Austin vs. España"):
+    with st.expander("⏱️ 2. Tiempo de Permanencia: Austin vs. España"):
         st.write("""
-        * Mientras en Austin (EE. UU.) la mediana de estancia es de **5,8 días**, en España un perro adulto pasa de media entre **8 y 12,8 meses** en la protectora.
-        * Los perros sénior (>8 años) superan los **13,2 meses** de estancia media.
+        * **Austin (EE. UU.):** La mediana de tiempo en el refugio es de apenas **5,8 días**.
+        * **España:** Un perro adulto pasa una media de entre **8 y 12,8 meses** en la protectora antes de ser adoptado.
+        * **Perros Sénior (>8 años):** Su tiempo medio de estancia se eleva a **13,2 meses** en el chenil.
         """)
 
     with st.expander("🚫 3. Principales Motivos de Abandono"):
         st.write("""
-        1. **Camadas no deseadas (15,3%):** Causa #1 de abandono por falta de esterilización.
-        2. **Pérdida de interés (14,0%):** Abandono por falta de compromiso.
-        3. **Cambio de domicilio (11,9%):** Solo el **5% de los pisos en alquiler** admiten mascotas expresamente.
+        1. **Camadas no deseadas (15,3%):** Causa número 1 de abandono. Confirma que la esterilización es la principal palanca preventiva.
+        2. **Pérdida de interés (14,0%):** Falta de compromiso con la mascota a medio/largo plazo.
+        3. **Cambio de domicilio (11,9%):** Reflejo de la dificultad de encontrar vivienda en alquiler que admita mascotas (solo el **5% de los alquileres** lo permite expresamente).
+        4. **Fin de la temporada de caza (10,5%):** Motivo recurrente en zonas rurales.
+        5. **Problemas de comportamiento (9,8%):** Principal causa de devolución tras adopción (~un tercio de las devoluciones) y factor primario de estancia prolongada (señalado por el 77,6% de las entidades).
+        """)
+
+    with st.expander("📉 4. Evolución de las Adopciones (Caída en 2025)"):
+        st.write("""
+        * En 2025 se registró un frenazo notable: las adopciones de perros cayeron un **18%** y las de gatos un **14%** respecto a 2024.
+        * El **35% de las familias interesadas desistió de adoptar**, principalmente por no encontrar el tamaño deseado o no aceptar las condiciones requeridas por la protectora.
+        * **Exportación de adopciones:** El 29,8% de las adopciones caninas tramitadas por protectoras españolas se gestiona con familias del extranjero.
+        """)
+
+    with st.expander("🏥 5. Estado de las Protectoras y Voluntariado"):
+        st.write("""
+        * Las entidades cuentan con una media de **29,1 voluntarios**, pero casi **4 de cada 10 protectoras no tienen ningún empleado remunerado**.
+        * Los refugios operan de forma continuada cerca del **90% de su capacidad máxima**.
         """)
 
 # =========================================================
