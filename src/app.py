@@ -9,9 +9,9 @@ import os
 # ---------------------------------------------------------
 st.set_page_config(
     page_title="Pasos de Acogida",
-    page_icon="🐾",
+    page_icon="🐶",
     layout="centered",
-    initial_sidebar_state="collapsed"  # Desplegable mediante el botón de tres rayas
+    initial_sidebar_state="collapsed"  # Plegado por defecto (acceso via ☰)
 )
 
 # ---------------------------------------------------------
@@ -29,8 +29,8 @@ st.markdown("""
     .app-header {
         background-color: #064E3B;
         color: #FFFFFF;
-        padding: 18px 16px;
-        border-radius: 16px;
+        padding: 16px;
+        border-radius: 14px;
         text-align: center;
         margin-bottom: 20px;
         box-shadow: 0 4px 10px rgba(6, 78, 59, 0.15);
@@ -38,15 +38,15 @@ st.markdown("""
     .app-header h1 {
         color: #FFFFFF !important;
         font-weight: 800;
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         margin: 0;
     }
     
-    /* Tarjetas de Contenido */
+    /* Tarjetas */
     .card-teal {
         background-color: #F8FAFC;
         border-left: 6px solid #064E3B;
-        padding: 18px;
+        padding: 16px;
         border-radius: 12px;
         margin-bottom: 16px;
     }
@@ -69,7 +69,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# LOGO Y HEADER SUPERIOR PERSONALIZADO
+# LOGO Y HEADER PERSONALIZADO
 # ---------------------------------------------------------
 ruta_logo = os.path.join(os.path.dirname(__file__), 'img', 'logo_app.png')
 
@@ -82,18 +82,18 @@ with col_img2:
 
 st.markdown("""
     <div class="app-header">
-        <h1>🐾 PASOS DE ACOGIDA</h1>
+        <h1>PASOS DE ACOGIDA</h1>
     </div>
 """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# MENÚ NAVEGADOR MÓVIL (Con Perro 🐕 y Gato 🐈)
+# MENÚ NAVEGADOR MÓVIL
 # ---------------------------------------------------------
 st.sidebar.markdown("## 🐕 🐈 Pasos de Acogida")
-st.sidebar.caption("Toca una opción para navegar:")
+st.sidebar.caption("Selecciona una opción para navegar:")
 
 opcion = st.sidebar.radio(
-    "Menú principal:",
+    "Navegación:",
     [
         "🏠 1. Inicio / La Idea",
         "📊 2. EDA Austin (Hipótesis)",
@@ -114,13 +114,13 @@ if opcion == "🏠 1. Inicio / La Idea":
     
     st.markdown("""
     <div class="card-teal">
-        <h4> Una mirada diferente al abandono y la acogida animal</h4>
-        <p>¡Kaixo Compis! <b>Pasos de Acogida</b> nace con una idea muy clara: utilizar los datos para entender qué ocurre realmente en las protectoras y buscar formas prácticas de echar una mano.</p>
-        <p>A través de esta app móvil quiero explorar cómo influyen aspectos como el pelaje, la época del año o el estado de salud en el tiempo que un animal pasa en un refugio. Además, conecto este análisis con la realidad de las protectoras en España para dar visibilidad a su trabajo y facilitar el contacto directo con ellas.</p>
+        <h4>🐾 Una mirada diferente a la acogida animal</h4>
+        <p> Kaixo Compis! <b>Pasos de Acogida</b> nace con una idea clara: utilizar los datos para entender la realidad de los refugios y buscar soluciones prácticas.</p>
+        <p>Exploro cómo influyen el pelaje, la estacionalidad o el estado de salud en el tiempo que una mascota pasa en jaula. Además, conecto estos hallazgos con la realidad de las protectoras en España para dar visibilidad a su labor y facilitar el contacto directo.</p>
     </div>
     """, unsafe_allow_html=True)
     
-    st.info("💡 **Navegación:** Despliega el menú pulsando el botón (>>) arriba a la izquierda para consultar las hipótesis, el estudio de España o buscar contactos de protectoras.")
+    st.info("💡 **Navegación:** Pulsa sobre el botón con las tres rayas (☰) en la esquina superior izquierda para abrir el menú.")
 
 # =========================================================
 # OPCIÓN 2: EDA AUSTIN (HIPÓTESIS)
@@ -130,7 +130,7 @@ elif opcion == "📊 2. EDA Austin (Hipótesis)":
     st.write("Explora las 4 hipótesis analizadas sobre más de 156.000 registros:")
     
     hipo = st.selectbox(
-        "Elige una hipótesis a consultar:",
+        "Selecciona una hipótesis:",
         [
             "H1: El Síndrome del Perro Negro",
             "H2: Estacionalidad (Kitten Season)",
@@ -152,7 +152,7 @@ elif opcion == "📊 2. EDA Austin (Hipótesis)":
                      title="Mediana de Días de Estancia por Pelaje")
         fig.update_traces(texttemplate='%{text:.2f} días', textposition='outside')
         st.plotly_chart(fig, use_container_width=True)
-        st.success("**Conclusión:** La diferencia en mediana es de solo **+0,38 días (~9 horas)**. Desmitificado el rechazo individual abrumador, aunque en el acumulado total suma más de 11.800 días extra en jaula.")
+        st.success("**Conclusión:** La diferencia en mediana es de solo **+0,38 días (~9 horas)**. El rechazo individual abrumador es un mito, aunque en la población acumulada suma más de 11.800 días extra en jaula.")
         
     elif "H2" in hipo:
         st.markdown("#### ☀️ H2: Estacionalidad (Kitten Season)")
@@ -161,7 +161,7 @@ elif opcion == "📊 2. EDA Austin (Hipótesis)":
         fig = px.line(x=meses, y=ingresos, markers=True, color_discrete_sequence=['#064E3B'],
                       title="Ingresos Mensuales en el Refugio")
         st.plotly_chart(fig, use_container_width=True)
-        st.warning("**Conclusión:** El colapso ocurre en **Mayo (16.044)** y **Junio (15.634)** por nacimientos de camadas descontroladas (*Kitten Season*), no por vacaciones en agosto.")
+        st.warning("**Conclusión:** El colapso ocurre en **Mayo (16.044)** y **Junio (15.634)** por nacimientos de camadas descontroladas (*Kitten Season*), no por vacaciones de agosto.")
         
     elif "H3" in hipo:
         st.markdown("#### 🏥 H3: Triaje de Salud vs. Eutanasia")
@@ -188,69 +188,68 @@ elif opcion == "📊 2. EDA Austin (Hipótesis)":
 # =========================================================
 # OPCIÓN 3: ESTUDIO FUNDACIÓN AFFINITY (ESPAÑA)
 # =========================================================
-elif opcion == "🇪🇸 3. Estudio Affinity (España)":
+elif opcion == "🐶 3. Estudio Affinity (España)":
     st.subheader("🇪🇸 Estudio Fundación Affinity (1995-2025)")
-    st.caption("Análisis oficial sobre el abandono, pérdida y adopción de animales de compañía en España.")
+    st.caption("Resumen interactivo extraído del informe oficial 'Él nunca lo haría'")
     
-    # KPIs Clave en España
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.metric("Ingresos Anuales", "285.720", "169.268 perros / 116.452 gatos")
-    with col2:
-        st.metric("Tasa de Adopción", "42,9%", "Caída del 18% en perros")
-    with col3:
-        st.metric("Sin Microchip", "75,0%", "No identificados al ingresar")
+    # KPIs clave del informe
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        st.metric("Recogidos/Año", "285.720", "169k 🐶 / 116k 🐱")
+    with c2:
+        st.metric("Adopción Perros", "42,9%", "-18% en 2025")
+    with c3:
+        st.metric("Sin Microchip", "75,0%", "Pérdida de rastro")
         
     st.markdown("""
     <div class="card-highlight">
-        <h4>📊 Principales Hallazgos del Informe Oficial:</h4>
+        <h4>📊 Datos Destacados del Estudio Oficial:</h4>
     </div>
     """, unsafe_allow_html=True)
 
-    with st.expander("🆔 1. El Impacto Crítico del Microchip", expanded=True):
+    with st.expander("🆔 1. Importancia Vital del Microchip", expanded=True):
         st.write("""
-        * **El 75% de los animales recogidos no lleva microchip**, a pesar de ser obligatorio por ley.
-        * **Efecto de la identificación:** Cuando un animal está identificado con microchip, el **65,2% regresa felizmente con su familia**, convirtiendo una pérdida temporal en un retorno rápido a casa. Un animal identificado tiene entre **4 y 5 veces más probabilidades** de volver a su hogar.
+        * **El 75% de los animales ingresados NO llevan microchip**, pese a ser obligatorio por ley en España[cite: 9].
+        * **Eficacia demostrada:** Cuando un animal está identificado, el **65,2% regresa felizmente con su familia**[cite: 9]. Llevar chip multiplica por 4 o 5 las probabilidades de volver a casa[cite: 9].
         """)
 
-    with st.expander("⏱️ 2. Tiempo de Permanencia: Austin vs. España"):
+    with st.expander("⏱️ 2. Tiempo en Chenil: Austin (EE.UU.) vs. España"):
         st.write("""
-        * **Austin (EE. UU.):** La mediana de tiempo en el refugio es de apenas **5,8 días**.
-        * **España:** Un perro adulto pasa una media de entre **8 y 12,8 meses** en la protectora antes de ser adoptado.
-        * **Perros Sénior (>8 años):** Su tiempo medio de estancia se eleva a **13,2 meses** en el chenil.
+        * Mientras que en Austin (EE.UU.) la mediana de estancia es de apenas **5,8 días**, en España un perro adulto pasa de media entre **8 y 12,8 meses** en la protectora[cite: 9, 14].
+        * Los perros sénior (>8 años) superan los **13,2 meses** de estancia en jaula[cite: 14].
         """)
 
     with st.expander("🚫 3. Principales Motivos de Abandono"):
         st.write("""
-        1. **Camadas no deseadas (15,3%):** Causa número 1 de abandono. Confirma que la esterilización es la principal palanca preventiva.
-        2. **Pérdida de interés (14,0%):** Falta de compromiso con la mascota a medio/largo plazo.
-        3. **Cambio de domicilio (11,9%):** Reflejo de la dificultad de encontrar vivienda en alquiler que admita mascotas (solo el **5% de los alquileres** lo permite expresamente).
-        4. **Fin de la temporada de caza (10,5%):** Motivo recurrente en zonas rurales.
-        5. **Problemas de comportamiento (9,8%):** Principal causa de devolución tras adopción (~un tercio de las devoluciones) y factor primario de estancia prolongada (señalado por el 77,6% de las entidades).
+        1. **Camadas no deseadas (15,3%):** Causa número 1[cite: 9]. La esterilización es la mejor estrategia preventiva[cite: 12].
+        2. **Pérdida de interés (14,0%):** Abandono por falta de compromiso[cite: 9].
+        3. **Cambio de domicilio (11,9%):** Solo el **5% de los pisos en alquiler** admiten mascotas expresamente[cite: 9, 13].
+        4. **Fin de temporada de caza (10,5%):** Factor recurrente anual[cite: 12].
+        5. **Problemas de comportamiento (9,8%):** Principal causa de devolución tras adopción (~33%) y causa del 77,6% de estancias prolongadas[cite: 12, 13, 14].
         """)
 
-    with st.expander("📉 4. Evolución de las Adopciones (Caída en 2025)"):
+    with st.expander("📉 4. Caída Reciente en las Adopciones"):
         st.write("""
-        * En 2025 se registró un frenazo notable: las adopciones de perros cayeron un **18%** y las de gatos un **14%** respecto a 2024.
-        * El **35% de las familias interesadas desistió de adoptar**, principalmente por no encontrar el tamaño deseado o no aceptar las condiciones requeridas por la protectora.
-        * **Exportación de adopciones:** El 29,8% de las adopciones caninas tramitadas por protectoras españolas se gestiona con familias del extranjero.
+        * En 2025 las adopciones cayeron un **18% en perros** y un **14% en gatos**[cite: 9, 14].
+        * El **35% de las familias interesadas desistió de adoptar**, sobre todo por no encontrar el tamaño deseado o las condiciones exigidas[cite: 14].
+        * Un **29,8% de las adopciones caninas** se gestionan hacia el extranjero por falta de demanda interna[cite: 14].
         """)
 
-    with st.expander("🏥 5. Estado de las Protectoras y Voluntariado"):
+    with st.expander("🏥 5. Situación de las Protectoras en España"):
         st.write("""
-        * Las entidades cuentan con una media de **29,1 voluntarios**, pero casi **4 de cada 10 protectoras no tienen ningún empleado remunerado**.
-        * Los refugios operan de forma continuada cerca del **90% de su capacidad máxima**.
+        * Casi **4 de cada 10 protectoras en España no disponen de ningún empleado remunerado**, sustentándose únicamente con voluntariado (media de 29,1 voluntarios)[cite: 15].
+        * Las entidades operan de forma continuada a cerca del **90% de su capacidad máxima**[cite: 15].
         """)
 
 # =========================================================
 # OPCIÓN 4: PROTECTORAS EN ESPAÑA CON CONTACTOS
 # =========================================================
 elif opcion == "🏘️ 4. Protectoras en España":
-    st.subheader("🏘️ Directorio de Protectoras y Contacto")
-    st.write("Consulta entidades de acogida y adopción en España con teléfono y datos directos de contacto:")
+    st.subheader("🏘️ Directorio de Protectoras y Contactos")
+    st.write("Consulta entidades de acogida y adopción en España:")
     
     zona = st.selectbox(
-        "Filtra por zona geográfica:",
+        "Filtra por Comunidad Autónoma / Zona:",
         [
             "Ámbito Estatal",
             "Comunidad de Madrid",
@@ -266,14 +265,12 @@ elif opcion == "🏘️ 4. Protectoras en España":
         <div class="card-contact">
             <h4>🏢 Fundación Affinity</h4>
             <p>📞 <b>Teléfono:</b> 93 495 80 00<br>
-            🌐 <b>Web:</b> <a href="https://www.fundacion-affinity.org/" target="_blank">fundacion-affinity.org</a><br>
-            📍 <b>Ámbito:</b> Investigación y estudio del abandono.</p>
+            🌐 <b>Web:</b> <a href="https://www.fundacion-affinity.org/" target="_blank">fundacion-affinity.org</a></p>
         </div>
         <div class="card-contact">
             <h4>🐕 FAADA (Fundación para la Adopción)</h4>
             <p>📞 <b>Teléfono:</b> 93 624 55 38<br>
-            🌐 <b>Web:</b> <a href="https://faada.org/" target="_blank">faada.org</a><br>
-            ✉️ <b>Contacto:</b> info@faada.org</p>
+            🌐 <b>Web:</b> <a href="https://faada.org/" target="_blank">faada.org</a></p>
         </div>
         """, unsafe_allow_html=True)
         
@@ -282,8 +279,7 @@ elif opcion == "🏘️ 4. Protectoras en España":
         <div class="card-contact">
             <h4>🐕 Asociación ALBA (Madrid)</h4>
             <p>📞 <b>Teléfono / WhatsApp:</b> 609 29 19 23<br>
-            🌐 <b>Web:</b> <a href="https://albaonline.org/" target="_blank">albaonline.org</a><br>
-            📍 <b>Ubicación:</b> Camarma de Esteruelas, Madrid</p>
+            🌐 <b>Web:</b> <a href="https://albaonline.org/" target="_blank">albaonline.org</a></p>
         </div>
         <div class="card-contact">
             <h4>🏛️ CIAAM (Comunidad de Madrid)</h4>
@@ -299,11 +295,6 @@ elif opcion == "🏘️ 4. Protectoras en España":
             <p>📞 <b>Teléfono:</b> 93 756 60 26<br>
             🌐 <b>Web:</b> <a href="https://www.protectoramataró.org/" target="_blank">protectoramataró.org</a></p>
         </div>
-        <div class="card-contact">
-            <h4>🏛️ CAACB Barcelona</h4>
-            <p>📞 <b>Teléfono:</b> 93 428 01 25<br>
-            🌐 <b>Web:</b> <a href="https://ajuntament.barcelona.cat/proteccioanimals/es" target="_blank">ajuntament.barcelona.cat</a></p>
-        </div>
         """, unsafe_allow_html=True)
         
     elif zona == "Andalucía":
@@ -312,11 +303,6 @@ elif opcion == "🏘️ 4. Protectoras en España":
             <h4>🐕 Galgos del Sur (Córdoba)</h4>
             <p>📞 <b>Teléfono:</b> 616 41 85 82<br>
             🌐 <b>Web:</b> <a href="https://galgosdelsur.es/" target="_blank">galgosdelsur.es</a></p>
-        </div>
-        <div class="card-contact">
-            <h4>🐾 SPAPM (Protectora de Málaga)</h4>
-            <p>📞 <b>Teléfono:</b> 952 43 45 00<br>
-            🌐 <b>Web:</b> <a href="https://protectoramalaga.org/" target="_blank">protectoramalaga.org</a></p>
         </div>
         """, unsafe_allow_html=True)
         
@@ -327,20 +313,10 @@ elif opcion == "🏘️ 4. Protectoras en España":
             <p>📞 <b>Teléfono:</b> 625 58 95 23<br>
             🌐 <b>Web:</b> <a href="https://asokaelgrande.org/" target="_blank">asokaelgrande.org</a></p>
         </div>
-        <div class="card-contact">
-            <h4>🐾 SVPAP (Valencia)</h4>
-            <p>📞 <b>Teléfono:</b> 96 384 41 09<br>
-            🌐 <b>Web:</b> <a href="https://svpap.com/" target="_blank">svpap.com</a></p>
-        </div>
         """, unsafe_allow_html=True)
         
     elif zona == "Norte (Galicia / País Vasco)":
         st.markdown("""
-        <div class="card-contact">
-            <h4>🏛️ Refugio de Bando (Santiago de Compostela)</h4>
-            <p>📞 <b>Teléfono:</b> 981 57 59 57<br>
-            🌐 <b>Web:</b> <a href="https://refugiodebando.org/" target="_blank">refugiodebando.org</a></p>
-        </div>
         <div class="card-contact">
             <h4>🐾 APA SOS Bilbao (Bizkaia)</h4>
             <p>📞 <b>Teléfono / WhatsApp:</b> 688 63 94 88<br>
@@ -353,7 +329,7 @@ elif opcion == "🏘️ 4. Protectoras en España":
 # =========================================================
 elif opcion == "🔮 5. Simulador de Estancia (ML)":
     st.subheader("🔮 Simulador de Estancia Estimada")
-    st.write("Selecciona los atributos de una mascota para estimar su tiempo de refugio:")
+    st.write("Selecciona los atributos de una mascota para estimar su tiempo de jaula:")
     
     col_s1, col_s2 = st.columns(2)
     with col_s1:
