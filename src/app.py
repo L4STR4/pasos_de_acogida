@@ -120,7 +120,7 @@ if opcion == "🏠 1. Inicio / La Idea":
     </div>
     """, unsafe_allow_html=True)
     
-    st.info("💡 **Navegación:** Pulsa sobre el botón con las tres rayas (☰) en la esquina superior izquierda para abrir el menú.")
+    st.info("💡 **Navegación:** Pulsa sobre el botón (<<) en la esquina superior izquierda para abrir el menú.")
 
 # =========================================================
 # OPCIÓN 2: EDA AUSTIN (HIPÓTESIS)
@@ -209,36 +209,36 @@ elif opcion == "🐶 3. Estudio Affinity (España)":
 
     with st.expander("🆔 1. Importancia Vital del Microchip", expanded=True):
         st.write("""
-        * **El 75% de los animales ingresados NO llevan microchip**, pese a ser obligatorio por ley en España[cite: 9].
-        * **Eficacia demostrada:** Cuando un animal está identificado, el **65,2% regresa felizmente con su familia**[cite: 9]. Llevar chip multiplica por 4 o 5 las probabilidades de volver a casa[cite: 9].
+        * **El 75% de los animales ingresados NO llevan microchip**, pese a ser obligatorio por ley en España.
+        * **Eficacia demostrada:** Cuando un animal está identificado, el **65,2% regresa felizmente con su familia**. Llevar chip multiplica por 4 o 5 las probabilidades de volver a casa[cite: 9].
         """)
 
     with st.expander("⏱️ 2. Tiempo en Chenil: Austin (EE.UU.) vs. España"):
         st.write("""
-        * Mientras que en Austin (EE.UU.) la mediana de estancia es de apenas **5,8 días**, en España un perro adulto pasa de media entre **8 y 12,8 meses** en la protectora[cite: 9, 14].
-        * Los perros sénior (>8 años) superan los **13,2 meses** de estancia en jaula[cite: 14].
+        * Mientras que en Austin (EE.UU.) la mediana de estancia es de apenas **5,8 días**, en España un perro adulto pasa de media entre **8 y 12,8 meses** en la protectora.
+        * Los perros sénior (>8 años) superan los **13,2 meses** de estancia en jaula.
         """)
 
     with st.expander("🚫 3. Principales Motivos de Abandono"):
         st.write("""
-        1. **Camadas no deseadas (15,3%):** Causa número 1[cite: 9]. La esterilización es la mejor estrategia preventiva[cite: 12].
-        2. **Pérdida de interés (14,0%):** Abandono por falta de compromiso[cite: 9].
-        3. **Cambio de domicilio (11,9%):** Solo el **5% de los pisos en alquiler** admiten mascotas expresamente[cite: 9, 13].
-        4. **Fin de temporada de caza (10,5%):** Factor recurrente anual[cite: 12].
-        5. **Problemas de comportamiento (9,8%):** Principal causa de devolución tras adopción (~33%) y causa del 77,6% de estancias prolongadas[cite: 12, 13, 14].
+        1. **Camadas no deseadas (15,3%):** Causa número 1. La esterilización es la mejor estrategia preventiva.
+        2. **Pérdida de interés (14,0%):** Abandono por falta de compromiso.
+        3. **Cambio de domicilio (11,9%):** Solo el **5% de los pisos en alquiler** admiten mascotas expresamente.
+        4. **Fin de temporada de caza (10,5%):** Factor recurrente anual.
+        5. **Problemas de comportamiento (9,8%):** Principal causa de devolución tras adopción (~33%) y causa del 77,6% de estancias prolongadas.
         """)
 
     with st.expander("📉 4. Caída Reciente en las Adopciones"):
         st.write("""
-        * En 2025 las adopciones cayeron un **18% en perros** y un **14% en gatos**[cite: 9, 14].
-        * El **35% de las familias interesadas desistió de adoptar**, sobre todo por no encontrar el tamaño deseado o las condiciones exigidas[cite: 14].
-        * Un **29,8% de las adopciones caninas** se gestionan hacia el extranjero por falta de demanda interna[cite: 14].
+        * En 2025 las adopciones cayeron un **18% en perros** y un **14% en gatos**.
+        * El **35% de las familias interesadas desistió de adoptar**, sobre todo por no encontrar el tamaño deseado o las condiciones exigidas.
+        * Un **29,8% de las adopciones caninas** se gestionan hacia el extranjero por falta de demanda interna.
         """)
 
     with st.expander("🏥 5. Situación de las Protectoras en España"):
         st.write("""
-        * Casi **4 de cada 10 protectoras en España no disponen de ningún empleado remunerado**, sustentándose únicamente con voluntariado (media de 29,1 voluntarios)[cite: 15].
-        * Las entidades operan de forma continuada a cerca del **90% de su capacidad máxima**[cite: 15].
+        * Casi **4 de cada 10 protectoras en España no disponen de ningún empleado remunerado**, sustentándose únicamente con voluntariado (media de 29,1 voluntarios).
+        * Las entidades operan de forma continuada cerca del **90% de su capacidad máxima**.
         """)
 
 # =========================================================
