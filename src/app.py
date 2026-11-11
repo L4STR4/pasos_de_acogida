@@ -8,10 +8,10 @@ import os
 # Configuración inicial de la página (Mobile-First)
 # ---------------------------------------------------------
 st.set_page_config(
-    page_title="Pasos a la Adopción",
+    page_title="Pasos de Acogida",
     page_icon="🐾",
     layout="centered",
-    initial_sidebar_state="collapsed"  # Abre la app cerrada con el botón de las 3 rayas
+    initial_sidebar_state="collapsed"  # Desplegable mediante el botón de tres rayas
 )
 
 # ---------------------------------------------------------
@@ -42,11 +42,11 @@ st.markdown("""
         margin: 0;
     }
     
-    /* Tarjetas */
+    /* Tarjetas de Contenido */
     .card-teal {
         background-color: #F8FAFC;
         border-left: 6px solid #064E3B;
-        padding: 16px;
+        padding: 18px;
         border-radius: 12px;
         margin-bottom: 16px;
     }
@@ -69,7 +69,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# HEADER Y LOGO PERSONALIZADO
+# LOGO Y HEADER SUPERIOR PERSONALIZADO
 # ---------------------------------------------------------
 ruta_logo = os.path.join(os.path.dirname(__file__), 'img', 'logo_app.png')
 
@@ -82,14 +82,14 @@ with col_img2:
 
 st.markdown("""
     <div class="app-header">
-        <h1>🐾 PASOS A LA ADOPCIÓN</h1>
+        <h1>🐾 PASOS DE ACOGIDA</h1>
     </div>
 """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
 # MENÚ NAVEGADOR MÓVIL (Con Perro 🐕 y Gato 🐈)
 # ---------------------------------------------------------
-st.sidebar.markdown("## 🐕 🐈 Pasos a la Adopción")
+st.sidebar.markdown("## 🐕 🐈 Pasos de Acogida")
 st.sidebar.caption("Toca una opción para navegar:")
 
 opcion = st.sidebar.radio(
@@ -104,7 +104,7 @@ opcion = st.sidebar.radio(
 )
 
 st.sidebar.divider()
-st.sidebar.caption("Pasos a la Adopción v1.0")
+st.sidebar.caption("Pasos de Acogida v1.0")
 
 # =========================================================
 # OPCIÓN 1: INICIO Y PROPÓSITO DEL PROYECTO
@@ -114,13 +114,13 @@ if opcion == "🏠 1. Inicio / La Idea":
     
     st.markdown("""
     <div class="card-teal">
-        <h4>🐾 Una mirada diferente a la adopción animal</h4>
-        <p>¡Hola! <b>Pasos a la Adopción</b> nace con una idea muy clara: utilizar los datos para entender qué ocurre realmente en los refugios y buscar formas prácticas de echar una mano.</p>
-        <p>A través de esta app móvil queremos explorar cómo influyen aspectos como el pelaje, la época del año o el estado de salud en el tiempo que una mascota pasa en una jaula. Además, conectamos estos datos con la realidad de las protectoras en España para dar visibilidad a su labor y facilitar el contacto con ellas.</p>
+        <h4>🐾 Una mirada diferente al abandono y la acogida animal</h4>
+        <p>¡Hola! <b>Pasos de Acogida</b> nace con una idea muy clara: utilizar los datos para entender qué ocurre realmente en las protectoras y buscar formas prácticas de echar una mano.</p>
+        <p>A través de esta app móvil queremos explorar cómo influyen aspectos como el pelaje, la época del año o el estado de salud en el tiempo que un animal pasa en un refugio. Además, conectamos este análisis con la realidad de las protectoras en España para dar visibilidad a su trabajo y facilitar el contacto directo con ellas.</p>
     </div>
     """, unsafe_allow_html=True)
     
-    st.info("💡 **Navegación:** Pulsa sobre el **botón con las tres rayas (☰)** en la esquina superior izquierda para desplegar el menú de opciones.")
+    st.info("💡 **Navegación:** Despliega el menú pulsando el botón con las tres rayas (☰) arriba a la izquierda para consultar las hipótesis, el estudio de España o buscar contactos de protectoras.")
 
 # =========================================================
 # OPCIÓN 2: EDA AUSTIN (HIPÓTESIS)
@@ -130,7 +130,7 @@ elif opcion == "📊 2. EDA Austin (Hipótesis)":
     st.write("Explora las 4 hipótesis analizadas sobre más de 156.000 registros:")
     
     hipo = st.selectbox(
-        "Elige una hipótesis:",
+        "Elige una hipótesis a consultar:",
         [
             "H1: El Síndrome del Perro Negro",
             "H2: Estacionalidad (Kitten Season)",
@@ -152,7 +152,7 @@ elif opcion == "📊 2. EDA Austin (Hipótesis)":
                      title="Mediana de Días de Estancia por Pelaje")
         fig.update_traces(texttemplate='%{text:.2f} días', textposition='outside')
         st.plotly_chart(fig, use_container_width=True)
-        st.success("**Conclusión:** La diferencia en mediana es de solo **+0,38 días (~9 horas)**. Desmitificado el rechazo individual abrumador, aunque en la población total suma más de 11.800 días extra en jaula.")
+        st.success("**Conclusión:** La diferencia en mediana es de solo **+0,38 días (~9 horas)**. Desmitificado el rechazo individual abrumador, aunque en el acumulado total suma más de 11.800 días extra en jaula.")
         
     elif "H2" in hipo:
         st.markdown("#### ☀️ H2: Estacionalidad (Kitten Season)")
@@ -190,7 +190,7 @@ elif opcion == "📊 2. EDA Austin (Hipótesis)":
 # =========================================================
 elif opcion == "🇪🇸 3. Estudio Affinity (España)":
     st.subheader("🇪🇸 Estudio Fundación Affinity")
-    st.caption("Resumen interactivo del informe 'Él nunca lo haría' (Datos en España)")
+    st.caption("Resumen del informe 'Él nunca lo haría' (Datos de abandonos y adopción en España)")
     
     col1, col2 = st.columns(2)
     with col1:
@@ -207,7 +207,7 @@ elif opcion == "🇪🇸 3. Estudio Affinity (España)":
     with st.expander("🆔 1. El grave problema de la falta de Microchip", expanded=True):
         st.write("""
         * **El 75% de los animales ingresados NO llevan microchip**, pese a ser obligatorio por ley.
-        * Sin embargo, cuando un animal está identificado, el **65,2% regresa felizmente con su familia**. El chip transforma una pérdida temporal en una devolución en 48 horas.
+        * Sin embargo, cuando un animal está identificado, el **65,2% regresa felizmente con su familia**. El chip transforma una pérdida temporal en una devolución rápida.
         """)
 
     with st.expander("⏱️ 2. Permanencia en Chenil: Austin vs. España"):
@@ -231,7 +231,7 @@ elif opcion == "🏘️ 4. Protectoras en España":
     st.write("Consulta entidades de acogida y adopción en España con teléfono y datos directos de contacto:")
     
     zona = st.selectbox(
-        "Selecciona zona geográfica:",
+        "Filtra por zona geográfica:",
         [
             "Ámbito Estatal",
             "Comunidad de Madrid",
@@ -334,7 +334,7 @@ elif opcion == "🏘️ 4. Protectoras en España":
 # =========================================================
 elif opcion == "🔮 5. Simulador de Estancia (ML)":
     st.subheader("🔮 Simulador de Estancia Estimada")
-    st.write("Selecciona los atributos de una mascota para estimar su tiempo de jaula:")
+    st.write("Selecciona los atributos de una mascota para estimar su tiempo de refugio:")
     
     col_s1, col_s2 = st.columns(2)
     with col_s1:
