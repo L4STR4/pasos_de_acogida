@@ -2,161 +2,263 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
-import plotly.graph_objects as go
 
 # ---------------------------------------------------------
-# Configuración inicial y diseño Mobile-First
+# Configuración inicial de la página (Mobile-First)
 # ---------------------------------------------------------
 st.set_page_config(
-    page_title="Pasos de Acogida | EDA Móvil",
+    page_title="Pasos a la Adopción | App Móvil",
     page_icon="🐾",
     layout="centered",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="expanded" # Abre el menú por defecto
 )
 
-# Estilos CSS personalizados para tarjetas y métricas móviles
+# ---------------------------------------------------------
+# Estilos CSS Personalizados (Montserrat + Verde Petróleo)
+# ---------------------------------------------------------
 st.markdown("""
     <style>
-    .main { padding: 0.8rem; }
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+    
+    html, body, [class*="css"] {
+        font-family: 'Montserrat', sans-serif;
+    }
+    
+    /* Header Principal */
+    .app-header {
+        background-color: #064E3B;
+        color: #FFFFFF;
+        padding: 20px 16px;
+        border-radius: 16px;
+        text-align: center;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 10px rgba(6, 78, 59, 0.15);
+    }
+    .app-header h1 {
+        color: #FFFFFF !important;
+        font-weight: 800;
+        font-size: 1.8rem;
+        margin-bottom: 4px;
+    }
+    .app-header p {
+        color: #A7F3D0 !important;
+        font-size: 0.9rem;
+        margin-bottom: 0;
+    }
+    
+    /* Tarjetas de Estilo */
+    .card-teal {
+        background-color: #F8FAFC;
+        border-left: 6px solid #064E3B;
+        padding: 16px;
+        border-radius: 12px;
+        margin-bottom: 16px;
+    }
+    .card-highlight {
+        background-color: #F0FDF4;
+        border: 1px solid #BBF7D0;
+        border-left: 6px solid #0D6E48;
+        padding: 16px;
+        border-radius: 12px;
+        margin-bottom: 16px;
+    }
+    
+    /* Métricas estilizadas */
     .stMetric {
         background-color: #F0FDF4;
         padding: 12px;
         border-radius: 12px;
-        border: 1px solid #BBF7D0;
-    }
-    .custom-card {
-        background-color: #F8FAFC;
-        padding: 15px;
-        border-radius: 12px;
-        border-left: 5px solid #0D6E48;
-        margin-bottom: 15px;
+        border: 1px solid #A7F3D0;
     }
     </style>
 """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# Encabezado con Identidad de Marca
+# Header Fijo de la App Móvil
 # ---------------------------------------------------------
-st.title("🐾 Pasos de Acogida")
-st.caption("Análisis Exploratorio de Datos & Impacto en Adopciones · Austin Animal Center")
-
 st.markdown("""
-¡Bienvenido/a a la app interactiva! Esta plataforma complementa nuestro análisis de datos con 
-**gráficos interactivos**, **datos curiosos** y un **simulador de estancia** para refugios.
-""")
-
-st.divider()
-
-# ---------------------------------------------------------
-# Pestañas Principales (Organización de Contenidos)
-# ---------------------------------------------------------
-tab1, tab2, tab3 = st.tabs(["📊 Gráficos Interáctivos", "💡 Datos Curiosos", "🔮 Simulador"])
+    <div class="app-header">
+        <h1>🐾 PASOS A LA ADOPCIÓN</h1>
+        <p>App Móvil del Proyecto · EDA & Impacto Social</p>
+    </div>
+""", unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# PESTAÑA 1: Gráficos Interactivos (Plotly)
+# MENÚ NAVEGADOR MÓVIL (Barra Lateral / Selector)
 # ---------------------------------------------------------
-with tab1:
-    st.subheader("📈 Exploración Visual en Tiempo Real")
+st.sidebar.image("https://img.icons8.com/color/96/pets.png", width=60)
+st.sidebar.title("📱 Menú de Navegación")
+
+opcion = st.sidebar.radio(
+    "Selecciona una opción:",
+    [
+        "🏠 1. Inicio / La Idea",
+        "🇪🇸 2. Estudio Affinity (España)",
+        "📊 3. EDA Austin (Hipótesis)",
+        "🏘️ 4. Protectoras en España",
+        "🔮 5. Simulador ML (Futuro)"
+    ]
+)
+
+st.sidebar.divider()
+st.sidebar.caption("Pasos a la Adopción v1.0 · Open Source")
+
+# =========================================================
+# OPCIÓN 1: INICIO Y PROPÓSITO
+# =========================================================
+if opcion == "🏠 1. Inicio / La Idea":
+    st.subheader("📌 Sobre el Proyecto")
     
-    # Filtro interactivo por Especie
-    especie_sel = st.selectbox(
-        "Selecciona el tipo de animal a consultar:",
-        ["Todos", "Perros (Dog)", "Gatos (Cat)", "Otros"]
-    )
+    st.markdown("""
+    <div class="card-teal">
+        <h4>¿Cuál es la idea de este proyecto?</h4>
+        <p>Unir el <b>Análisis Exploratorio de Datos (EDA)</b> con la concienciación social sobre el abandono animal. Estudiamos los factores que retienen a los animales en refugios para proponer soluciones operativas.</p>
+    </div>
+    """, unsafe_allow_html=True)
     
-    # 1. Gráfico interactivo de Estacionalidad (Plotly Express)
-    meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
-    # Datos simulados o filtrados representativos del dataset
-    if especie_sel == "Gatos (Cat)":
-        volumen = [800, 750, 900, 1100, 2400, 2300, 1900, 1500, 1200, 1000, 850, 800]
-    elif especie_sel == "Perros (Dog)":
-        volumen = [1200, 1150, 1300, 1250, 1400, 1380, 1450, 1400, 1300, 1250, 1200, 1180]
-    else:
-        volumen = [2100, 2000, 2300, 2550, 4100, 3900, 3500, 3050, 2600, 2350, 2150, 2050]
+    st.markdown("### 📊 Cifras Clave del Análisis")
+    col1, col2 = st.columns(2)
+    with col1:
+        st.metric("Dataset Austin", "156.041", "Registros analizados")
+    with col2:
+        st.metric("Estancia Mediana", "5,8 Días", "En Austin (EE.UU.)")
+
+# =========================================================
+# OPCIÓN 2: ESTUDIO FUNDACIÓN AFFINITY (ESPAÑA)
+# =========================================================
+elif opcion == "🇪🇸 2. Estudio Affinity (España)":
+    st.subheader("🇪🇸 La Realidad en España")
+    st.caption("Datos oficiales extraídos del Estudio 'Él nunca lo haría' (Fundación Affinity 2026)")
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        st.metric("Abandonos / Año", "285.720", "Perros y Gatos")
+    with col2:
+        st.metric("Caída Adopciones", "-18%", "En el último año")
         
-    df_meses = pd.DataFrame({'Mes': meses, 'Ingresos': volumen})
-    
-    fig_bar = px.bar(
-        df_meses, 
-        x='Mes', 
-        y='Ingresos',
-        title=f"Volumen Mensual de Ingresos ({especie_sel})",
-        color='Ingresos',
-        color_continuous_scale='Greens'
-    )
-    fig_bar.update_layout(margin=dict(l=10, r=10, t=40, b=10), showlegend=False)
-    st.plotly_chart(fig_bar, use_container_width=True)
-    
-    # 2. Gráfico de Rosca: Tipo de Salida (Outcome Type)
-    st.markdown("#### 🏠 Destino Final de las Mascotas")
-    df_destinos = pd.DataFrame({
-        'Destino': ['Adopción', 'Traslado (Transfer)', 'Devolución al Dueño', 'Eutanasia', 'Otros'],
-        'Porcentaje': [46.8, 32.1, 14.3, 4.2, 2.6]
-    })
-    
-    fig_pie = px.pie(
-        df_destinos, 
-        values='Porcentaje', 
-        names='Destino',
-        hole=0.4,
-        color_discrete_sequence=px.colors.sequential.Darkmint
-    )
-    fig_pie.update_layout(margin=dict(l=10, r=10, t=20, b=10))
-    st.plotly_chart(fig_pie, use_container_width=True)
-
-# ---------------------------------------------------------
-# PESTAÑA 2: Datos Curiosos & Mitos de Adopción
-# ---------------------------------------------------------
-with tab2:
-    st.subheader("💡 Mitos vs. Realidades del Refugio")
-    
-    with st.expander("🐈 La 'Temporada de Gatitos' (Kitten Season)", expanded=True):
-        st.write("""
-        En **mayo y junio**, la entrada de felinos recién nacidos aumenta un **+120%**. 
-        Esto obliga a las protectoras a buscar casas de acogida temporal (*Foster*) 
-        de urgencia para evitar la saturación de jaulas.
-        """)
-        
-    with st.expander("🖤 El Mito del 'Síndrome del Perro Negro'"):
-        st.write("""
-        Aunque existe el mito de que los perros negros se adoptan menos por temas de fotografía 
-        o estereotipos, los datos muestran que su mediana de estancia es apenas **9 horas superior** 
-        a la de perros de tono claro.
-        """)
-
-    with st.expander("📍 Diferencia Internacional (EE. UU. vs. España)"):
-        st.write("""
-        Mientras que en Austin la mediana de estancia es de **5.8 días** debido a una red masiva de 
-        adopción inmediata, en España la permanencia media de un perro adulto en refugio supera los 
-        **8 a 12 meses**.
-        """)
-
-# ---------------------------------------------------------
-# PESTAÑA 3: Simulador Estimador de Estancia
-# ---------------------------------------------------------
-with tab3:
-    st.subheader("🔮 Estimador Interactivo de Estancia")
-    st.write("Selecciona los atributos de una mascota para calcular su tiempo estimado en el refugio:")
-    
-    tipo_input = st.selectbox("Especie", ["Perro", "Gato", "Otro"])
-    edad_input = st.select_slider("Edad aproximada", options=["Cachorro (<1 año)", "Joven (1-3 años)", "Adulto (3-8 años)", "Senior (>8 años)"])
-    salud_input = st.radio("Estado de salud al ingresar", ["Normal", "Herido / Enfermo"])
-    
-    # Cálculo simple simulado basado en el EDA
-    dias_base = 5.0
-    if tipo_input == "Gato" and edad_input == "Cachorro (<1 año)":
-        dias_base += 3.5
-    if edad_input == "Senior (>8 años)":
-        dias_base += 7.2
-    if salud_input == "Herido / Enfermo":
-        dias_base += 5.0
-        
-    st.markdown(f"""
-    <div class="custom-card">
-        <h3>⏱️ Estancia estimada: <b>{dias_base:.1f} días</b></h3>
-        <p><i>Basado en la mediana histórica de características similares.</i></p>
+    st.markdown("""
+    <div class="card-highlight">
+        <h4>🚨 Hallazgos Críticos del Informe:</h4>
+        <ul>
+            <li><b>75% sin Microchip:</b> 3 de cada 4 animales entran sin identificar a los refugios españoles.</li>
+            <li><b>12,8 Meses:</b> Es la estancia media de un perro adulto en protectoras españolas (frente a los 5,8 días de Austin).</li>
+            <li><b>15,3% Camadas No Deseadas:</b> Sigue siendo el motivo #1 de abandono en nuestro país.</li>
+        </ul>
     </div>
     """, unsafe_allow_html=True)
 
-st.divider()
-st.caption("Pasos de Acogida · Proyecto Open Source")
+# =========================================================
+# OPCIÓN 3: EXPLORADOR DE HIPÓTESIS (EDA AUSTIN)
+# =========================================================
+elif opcion == "📊 3. EDA Austin (Hipótesis)":
+    st.subheader("📊 Análisis de Hipótesis (Austin EDA)")
+    st.write("Toca en el selector para ver la gráfica y resolución de cada hipótesis:")
+    
+    hipo = st.selectbox(
+        "Elige la hipótesis:",
+        [
+            "H1: Síndrome del Perro Negro",
+            "H2: Estacionalidad (Kitten Season)",
+            "H3: Triaje de Salud vs. Eutanasia",
+            "H4: Perros vs. Gatos"
+        ]
+    )
+    
+    st.divider()
+    
+    if "H1" in hipo:
+        st.markdown("#### 🖤 H1: El Síndrome del Perro Negro")
+        df_pelaje = pd.DataFrame({
+            'Pelaje': ['Negro / Oscuro', 'Claro / Otros'],
+            'Mediana_Dias': [5.90, 5.52]
+        })
+        fig = px.bar(df_pelaje, x='Pelaje', y='Mediana_Dias', text='Mediana_Dias',
+                     color='Pelaje', color_discrete_sequence=['#064E3B', '#34D399'],
+                     title="Mediana de Días de Estancia por Pelaje")
+        fig.update_traces(texttemplate='%{text:.2f} días', textposition='outside')
+        st.plotly_chart(fig, use_container_width=True)
+        st.success("**Resolución:** Diferencia de solo +0,38 días (~9 horas). Desmitificado a nivel individual, aunque acumula +11.800 días extra en la población total.")
+        
+    elif "H2" in hipo:
+        st.markdown("#### ☀️ H2: Estacionalidad (Kitten Season)")
+        meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+        ingresos = [10805, 9792, 11895, 12383, 16044, 15634, 14343, 13891, 13557, 14668, 12159, 10870]
+        fig = px.line(x=meses, y=ingresos, markers=True, color_discrete_sequence=['#064E3B'],
+                      title="Ingresos Mensuales en el Refugio")
+        st.plotly_chart(fig, use_container_width=True)
+        st.warning("**Resolución:** Picos críticos en Mayo (16k) y Junio (15,6k) por nacimientos estivales. Exige preparar la red de acogidas en marzo/abril.")
+        
+    elif "H3" in hipo:
+        st.markdown("#### 🏥 H3: Triaje de Salud vs. Eutanasia")
+        df_salud = pd.DataFrame({
+            'Estado': ['Normal', 'Herido', 'Enfermo', 'Lactante'],
+            'Adopción %': [50.7, 29.4, 20.7, 30.0],
+            'Traslado %': [27.1, 26.5, 33.1, 61.5],
+            'Eutanasia %': [3.5, 26.8, 34.6, 2.4]
+        }).melt(id_vars='Estado', var_name='Destino', value_name='Porcentaje')
+        fig = px.bar(df_salud, x='Estado', y='Porcentaje', color='Destino', barmode='group',
+                     color_discrete_sequence=['#064E3B', '#34D399', '#D97706'])
+        st.plotly_chart(fig, use_container_width=True)
+        st.info("**Resolución:** Refutado. El centro opera como triaje: el 33,1% de enfermos y 61,5% de lactantes se traslada a protectoras especializadas.")
+        
+    elif "H4" in hipo:
+        st.markdown("#### 🐱 vs 🐶 H4: Perros vs. Gatos")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.metric("Gatos (Cat)", "7,12 Días", "Mediana")
+        with col2:
+            st.metric("Perros (Dog)", "5,78 Días", "Mediana")
+        st.info("**Resolución:** Los gatos pasan 1,34 días más de mediana debido a la incubación de camadas lactantes.")
+
+# =========================================================
+# OPCIÓN 4: DIRECTORIO DE PROTECTORAS EN ESPAÑA
+# =========================================================
+elif opcion == "🏘️ 4. Protectoras en España":
+    st.subheader("🏘️ Directorio de Protectoras y Ayuda")
+    st.write("Consulta entidades de adopción en España por zona:")
+    
+    zona = st.selectbox(
+        "Selecciona zona geográfica:",
+        ["Ámbito Estatal", "Comunidad de Madrid", "Cataluña", "Andalucía", "C. Valenciana", "Norte (Galicia/País Vasco)"]
+    )
+    
+    if zona == "Ámbito Estatal":
+        st.markdown("""
+        * **Fundación Affinity:** [fundacion-affinity.org](https://www.fundacion-affinity.org/)
+        * **Miwuki Pet Center:** Plataforma nacional de adopción.
+        * **FAADA:** [faada.org](https://faada.org/)
+        """)
+    elif zona == "Comunidad de Madrid":
+        st.markdown("* **ALBA:** [albaonline.org](https://albaonline.org/)\n* **CIAAM Madrid**")
+    elif zona == "Cataluña":
+        st.markdown("* **SPAM Mataró:** [protectoramataró.org](https://www.protectoramataró.org/)\n* **CAACB Barcelona**")
+    elif zona == "Andalucía":
+        st.markdown("* **Galgos del Sur (Córdoba)**\n* **SPAPM Málaga**")
+    elif zona == "C. Valenciana":
+        st.markdown("* **SVPAP Valencia**\n* **Asoka El Grande (Alicante)**")
+    elif zona == "Norte (Galicia/País Vasco)":
+        st.markdown("* **Refugio de Bando (Santiago)**\n* **APA SOS Bilbao**")
+
+# =========================================================
+# OPCIÓN 5: SIMULADOR DE MACHINE LEARNING (FUTURO)
+# =========================================================
+elif opcion == "🔮 5. Simulador ML (Futuro)":
+    st.subheader("🔮 Motor Predictivo (Machine Learning)")
+    
+    st.markdown("""
+    <div class="card-highlight">
+        <h4>🎯 El Planteamiento Futuro</h4>
+        <p>Predecir en las primeras 24 horas de ingreso qué mascotas tienen riesgo de superar los 15 días en jaula para asignarles automáticamente familias de acogida pre-evaluadas sin pisar el chenil.</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("### ⚙️ Simulador Interactivo de Riesgo")
+    tipo = st.selectbox("Especie", ["Perro", "Gato"])
+    salud = st.selectbox("Estado Sanitario", ["Normal", "Herido / Enfermo"])
+    edad = st.select_slider("Edad", ["Cachorro", "Joven", "Adulto", "Senior"])
+    
+    if st.button("Calcular Riesgo Predictivo"):
+        if salud != "Normal" or edad == "Senior":
+            st.error("🚨 **Alto Riesgo de Permanencia Prolongada (>15 días).** Se sugiere activar campaña prioritaria.")
+        else:
+            st.success("✅ **Bajo Riesgo de Estancia.** Estancia estimada: 4 a 6 días.")
