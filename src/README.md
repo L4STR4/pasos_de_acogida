@@ -6,7 +6,7 @@
 ![License](https://img.shields.io/badge/Coste-0%20%E2%82%AC%20(Open%20Source)-brightgreen?style=for-the-badge)
 
 ## 📌 Descripción del Proyecto
-Este proyecto de **Análisis Exploratorio de Datos (EDA)** examina el histórico de más de 150.000 entradas y salidas del **Austin Animal Center** (Texas, EE. UU.)[cite: 3]. El objetivo principal es identificar qué factores condicionan el tiempo de permanencia (`Days_in_Shelter`) de las mascotas en el refugio para optimizar la gestión de jaulas, recursos sanitarios y campañas de adopción[cite: 1, 3].
+Este proyecto de **Análisis Exploratorio de Datos (EDA)** examina el histórico de más de 150.000 entradas y salidas del **Austin Animal Center** (Texas, EE. UU.)[cite: 3]. El objetivo principal es identificar qué factores condicionan el tiempo de permanencia (`Days_in_Shelter`) de las mascotas en el refugio para optimizar la gestión de jaulas, recursos sanitarios y campañas de adopción.
 
 Además, el proyecto cuenta con una **aplicación web responsive (Mobile-First)** enlazada mediante un **código QR** en la presentación oral para consultar métricas en tiempo real y datos curiosos sobre la adopción.
 
@@ -14,28 +14,28 @@ Además, el proyecto cuenta con una **aplicación web responsive (Mobile-First)*
 
 ## 🎯 Hipótesis Analizadas (Mito vs. Realidad)
 
-1. **El "Síndrome del Perro Negro":** ¿Tienen los perros de pelaje oscuro tiempos de estancia significativamente superiores en jaula?[cite: 3]
-2. **Estacionalidad y Camadas:** ¿Se produce la mayor saturación del refugio en agosto por vacaciones o se anticipa a mayo/junio por el nacimiento masivo de camadas sin esterilizar?[cite: 3]
-3. **Triaje y Salud al Ingreso:** ¿Los animales que ingresan heridos o enfermos son eutanasiados o se derivan mediante redes de traslado (*Transfer*)?[cite: 3]
-4. **Perros vs. Gatos:** ¿Quién pasa más tiempo de mediana encerrado antes de encontrar un hogar?[cite: 3]
+1. **El "Síndrome del Perro Negro":** ¿Tienen los perros de pelaje oscuro tiempos de estancia significativamente superiores en jaula?
+2. **Estacionalidad y Camadas:** ¿Se produce la mayor saturación del refugio en agosto por vacaciones o se anticipa a mayo/junio por el nacimiento masivo de camadas sin esterilizar?
+3. **Triaje y Salud al Ingreso:** ¿Los animales que ingresan heridos o enfermos son eutanasiados o se derivan mediante redes de traslado (*Transfer*)?
+4. **Perros vs. Gatos:** ¿Quién pasa más tiempo de mediana encerrado antes de encontrar un hogar?
 
 ---
 
 ## 📊 Principales Hallazgos (Insights Clave)
 
-* **Mediana de estancia:** El 50% de las mascotas salen en menos de **5,84 días**, aunque existen casos extremos (*outliers*) que superan los 1.000 días[cite: 3].
-* **El efecto estacional:** El volumen de ingresos se dispara en **mayo (16.044)** y **junio (15.634)** debido a la *kitten season* (camadas estivales), exigiendo lanzar campañas de acogida preventiva en marzo/abril[cite: 3].
-* **Diferencia de pelaje:** La brecha de mediana entre perros negros y claros es de apenas **+0,38 días (~9 horas)**, pero acumula más de 11.800 días de estancia adicional en la población total[cite: 3].
-* **Puente socioeducativo con España:** Frente a la alta rotación de Austin (mediana de 6 días), las protectoras en España enfrentan estancias medias de **8 a 12 meses** para perros adultos (según datos de la Fundación Affinity)[cite: 3].
+* **Mediana de estancia:** El 50% de las mascotas salen en menos de **5,84 días**, aunque existen casos extremos (*outliers*) que superan los 1.000 días.
+* **El efecto estacional:** El volumen de ingresos se dispara en **mayo (16.044)** y **junio (15.634)** debido a la *kitten season* (camadas estivales), exigiendo lanzar campañas de acogida preventiva en marzo/abril.
+* **Diferencia de pelaje:** La brecha de mediana entre perros negros y claros es de apenas **+0,38 días (~9 horas)**, pero acumula más de 11.800 días de estancia adicional en la población total.
+* **Puente socioeducativo con España:** Frente a la alta rotación de Austin (mediana de 6 días), las protectoras en España enfrentan estancias medias de **8 a 12 meses** para perros adultos (según datos de la Fundación Affinity).
 
 ---
 
 ## 🛠️ Tecnologías Utilizadas
 
 * **Lenguaje:** Python 3.10+
-* **Procesamiento de Datos:** `Pandas`, `NumPy`[cite: 2]
-* **Visualización:** `Matplotlib`, `Seaborn`[cite: 1, 9]
-* **Web Interactiva / Mobile:** `Streamlit`[cite: 9]
+* **Procesamiento de Datos:** `Pandas`, `NumPy`
+* **Visualización:** `Matplotlib`, `Seaborn`
+* **Web Interactiva / Mobile:** `Streamlit`
 * **Despliegue y Hosting:** GitHub Pages / Streamlit Community Cloud (Gratuito)
 
 ---
@@ -52,3 +52,4 @@ proyecto-eda-mascotas/
     ├── data/                 # Datasets procesados de Austin Animal Center
     ├── notebooks/            # Pruebas en sucio y exploración preliminar
     └── utils/                # Módulos auxiliares Python (limpieza y visualización)
+    └── MEMORIA PROYECTO      # Memoria tecnica del proyecto

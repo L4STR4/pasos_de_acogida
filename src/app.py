@@ -120,7 +120,7 @@ if opcion == "🏠 1. Inicio / La Idea":
     </div>
     """, unsafe_allow_html=True)
     
-    st.info("💡 **Navegación:** Pulsa sobre el botón (<<) en la esquina superior izquierda para abrir el menú.")
+    st.info("💡 **Navegación:** Pulsa sobre el botón (>>) en la esquina superior izquierda para abrir el menú.")
 
 # =========================================================
 # OPCIÓN 2: EDA AUSTIN (HIPÓTESIS)
